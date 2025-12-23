@@ -11,6 +11,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
     <style>
+        #gift-box {
+    animation: giftWiggle 2s infinite;
+    transition: transform 0.3s;
+}
+#gift-box:hover {
+    transform: scale(1.2);
+}
+@keyframes giftWiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(8deg); }
+    50% { transform: rotate(-8deg); }
+    100% { transform: rotate(0deg); }
+}
         @keyframes colorChange {
     0%   { color: #ff0000; text-shadow: 0 0 20px #ff0000; } /* Đỏ */
     33%  { color: #00ff00; text-shadow: 0 0 20px #00ff00; } /* Xanh lá */
@@ -98,6 +111,12 @@
         </div>
         <button id="btnStart" onclick="startSystem()">START MAGIC</button>
     </div>
+    <div id="gift-container" style="display: none; position: fixed; bottom: 80px; right: 30px; cursor: pointer; z-index: 10000; text-align: center;">
+    <div id="gift-message" style="display: none; background: rgba(255, 255, 255, 0.9); color: #d42426; padding: 12px; border-radius: 12px; font-weight: bold; box-shadow: 0 0 15px gold; margin-bottom: 8px; width: 180px; font-size: 14px;">
+        Chúc mừng cậu đã nhận một món quà từ mình! 🎄✨
+    </div>
+    <div id="gift-box" style="font-size: 70px; display: inline-block;" onclick="openGift()">🎁</div>
+</div>
 
     <!-- Vandiep -->
     <div id="copyright">© by nghiadotrong</div>
@@ -499,6 +518,7 @@
 
         function startSystem() {
             document.getElementById('from-me').style.opacity = '0';
+            document.getElementById('gift-container').style.display = 'block';
             document.getElementById('btnStart').style.display = 'none';
             bgMusic.play().catch(e => console.log(e));
             init3D();
@@ -552,6 +572,17 @@
         window.addEventListener('resize', () => {
             if(camera) { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }
         });
+        function openGift() {
+    var msg = document.getElementById('gift-message');
+    var box = document.getElementById('gift-box');
+    if (msg.style.display === 'none') {
+        msg.style.display = 'block';
+        box.innerHTML = '📦'; // Đổi thành hộp đã mở
+    } else {
+        msg.style.display = 'none';
+        box.innerHTML = '🎁';
+    }
+}
     </script>
 </body>
 </html>
