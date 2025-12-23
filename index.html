@@ -88,7 +88,6 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 55px;
     font-weight: bold;
     text-align: center;
     width: 100%;
@@ -97,9 +96,11 @@
     pointer-events: none;
     transition: opacity 1.5s ease;
     opacity: 1;
-    animation: colorChange 3s infinite; /* Chữ tự đổi màu sau mỗi 3 giây */
+    animation: colorChange 3s infinite;
+    line-height: 1.4; /* Khoảng cách giữa 2 dòng chữ */
 ">
-    From Do Trong Nghia
+    <span style="font-size: 50px;">From: Do Trong Nghia</span> <br>
+    <span style="font-size: 40px; opacity: 0.9;">To: Vu Uyen Phuong</span>
 </div>
     <div id="error-log"></div>
     
