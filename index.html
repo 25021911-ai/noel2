@@ -577,6 +577,8 @@
         function openGift() {
             var hasTyped = false; 
 function openGift() {
+    var hasTyped = false; 
+function openGift() {
     var msg = document.getElementById('gift-message');
     var box = document.getElementById('gift-box');
     var text = "Chúc Phương một Giáng sinh thật ấm áp, luôn xinh đẹp và hạnh phúc nhé! ❤️✨";
@@ -586,8 +588,8 @@ function openGift() {
         msg.style.display = 'block';
         box.innerHTML = '📦';
 
-        // --- 1. HIỆU ỨNG PHÁO HOA ---
-        for (let i = 0; i < 30; i++) {
+        // 1. Hiệu ứng Pháo hoa ✨
+        for (let j = 0; j < 30; j++) {
             const confetti = document.createElement('div');
             confetti.innerText = '✨';
             confetti.style.position = 'fixed';
@@ -604,7 +606,7 @@ function openGift() {
             setTimeout(() => confetti.remove(), 1000);
         }
 
-        // --- 2. HIỆU ỨNG ĐÁNH MÁY ---
+        // 2. Hiệu ứng Đánh máy ⌨️
         if (!hasTyped) {
             hasTyped = true;
             msg.innerHTML = ""; 
@@ -622,16 +624,7 @@ function openGift() {
         box.innerHTML = '🎁';
     }
 }
-    var msg = document.getElementById('gift-message');
-    var box = document.getElementById('gift-box');
-    if (msg.style.display === 'none') {
-        msg.style.display = 'block';
-        box.innerHTML = '📦'; // Đổi thành hộp đã mở
-    } else {
-        msg.style.display = 'none';
-        box.innerHTML = '🎁';
-    }
-}
+    
     </script>
 </body>
 </html>
