@@ -25,10 +25,10 @@
     100% { transform: rotate(0deg); }
 }
         @keyframes colorChange {
-    0%   { color: #ff0000; text-shadow: 0 0 20px #ff0000; } /* Đỏ */
-    33%  { color: #00ff00; text-shadow: 0 0 20px #00ff00; } /* Xanh lá */
-    66%  { color: #ffff00; text-shadow: 0 0 20px #ffff00; } /* Vàng */
-    100% { color: #ff0000; text-shadow: 0 0 20px #ff0000; } /* Quay lại Đỏ */
+    @keyframes colorChange {
+    0%   { color: #FFD700; text-shadow: 0 0 20px #FFD700; } /* Vàng Gold */
+    50%  { color: #FF8C00; text-shadow: 0 0 25px #FF8C00; } /* Cam đậm */
+    100% { color: #FFA500; text-shadow: 0 0 20px #FFA500; } /* Vàng cam */
 }
         body { margin: 0; overflow: hidden; background-color: #000000; font-family: 'Segoe UI', sans-serif; }
         #canvas-container { width: 100%; height: 100vh; display: block; }
@@ -83,7 +83,9 @@
     </style>
 </head>
 <body>
-    <div id="from-me" style="
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<div id="from-me" style="
     position: fixed;
     top: 40%;
     left: 50%;
@@ -92,15 +94,17 @@
     text-align: center;
     width: 100%;
     z-index: 9999;
-    font-family: 'Arial', sans-serif;
+    /* Font cách điệu và làm nghiêng chữ */
+    font-family: 'Dancing Script', cursive; 
+    font-style: italic; 
     pointer-events: none;
     transition: opacity 1.5s ease;
     opacity: 1;
     animation: colorChange 3s infinite;
-    line-height: 1.4; /* Khoảng cách giữa 2 dòng chữ */
+    line-height: 1.2;
 ">
-    <span style="font-size: 50px;">From: Do Trong Nghia</span> <br>
-    <span style="font-size: 40px; opacity: 0.9;">To: Vu Uyen Phuong</span>
+    <span style="font-size: 60px;">From: Do Trong Nghia</span> <br>
+    <span style="font-size: 45px; opacity: 0.9;">To: Vu Uyen Phuong</span>
 </div>
     <div id="error-log"></div>
     
@@ -577,7 +581,7 @@
         function openGift() {
     const msg = document.getElementById('gift-message');
     const box = document.getElementById('gift-box');
-    const text = "Chúc Phương một Giáng sinh thật ấm áp, luôn xinh đẹp và hạnh phúc nhé! ❤️✨";
+    const text = "Cậu nhận được một món quà bí mật từ mình rồi (liên hệ mình nhận quà nhé) ✨";
 
     // Nếu tin nhắn đang ẩn thì hiện lên, và ngược lại
     if (msg.style.display === 'none' || msg.style.display === '') {
