@@ -16,7 +16,7 @@
         body { margin: 0; overflow: hidden; background-color: #000000; font-family: 'Segoe UI', sans-serif; }
         #canvas-container { width: 100%; height: 100vh; display: block; }
         
-        /* HIỆU ỨNG CHỮ NHẤP NHÁY VÀNG CAM (Ban đầu) */
+        /* HIỆU ỨNG CHỮ NHẤP NHÁY VÀNG CAM (Cho phần Intro) */
         @keyframes colorChange {
             0%   { color: #FFD700; text-shadow: 0 0 20px #FFD700; }
             50%  { color: #FF8C00; text-shadow: 0 0 25px #FF8C00; }
@@ -222,18 +222,18 @@
             starMesh.position.set(0, CONFIG.treeHeight/2 + 2, 0); scene.add(starMesh);
 
             // =================================================
-            // LỜI CHÚC MÀU ĐỎ KHI TẠO TRÁI TIM (Update)
+            // LỜI CHÚC MÀU HỒNG KHI TẠO TRÁI TIM (Update)
             // =================================================
             const loveCanvas = document.createElement('canvas');
             loveCanvas.width = 1024; loveCanvas.height = 320; 
             const lCtx = loveCanvas.getContext('2d');
 
-            // Đổi màu thành Đỏ rực rỡ và Font chữ rõ nét
+            // Đổi màu thành Hồng rực rỡ (Hot Pink)
             lCtx.font = 'bold italic 52px "Times New Roman", serif'; 
-            lCtx.fillStyle = '#FF0000'; // Màu Đỏ (Red)
+            lCtx.fillStyle = '#FF69B4'; // Màu Hot Pink dễ nhìn
             lCtx.textAlign = 'center';
-            lCtx.shadowColor = "#FFFFFF"; // Bóng trắng để chữ đỏ nổi bật hơn
-            lCtx.shadowBlur = 20;
+            lCtx.shadowColor = "#FF1493"; // Bóng hồng đậm để tạo độ sâu
+            lCtx.shadowBlur = 25;
 
             lCtx.fillText("Chúc Phương một Giáng sinh thật ấm áp,", 512, 120);
             lCtx.fillText("luôn xinh đẹp và hạnh phúc nhé! ✨", 512, 210);
