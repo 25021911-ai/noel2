@@ -575,56 +575,20 @@
             if(camera) { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); }
         });
         function openGift() {
-            var hasTyped = false; 
-function openGift() {
-    var hasTyped = false; 
-function openGift() {
-    var msg = document.getElementById('gift-message');
-    var box = document.getElementById('gift-box');
-    var text = "Chúc Phương một Giáng sinh thật ấm áp, luôn xinh đẹp và hạnh phúc nhé! ❤️✨";
-    var i = 0;
+    const msg = document.getElementById('gift-message');
+    const box = document.getElementById('gift-box');
+    const text = "Chúc Phương một Giáng sinh thật ấm áp, luôn xinh đẹp và hạnh phúc nhé! ❤️✨";
 
+    // Nếu tin nhắn đang ẩn thì hiện lên, và ngược lại
     if (msg.style.display === 'none' || msg.style.display === '') {
         msg.style.display = 'block';
-        box.innerHTML = '📦';
-
-        // 1. Hiệu ứng Pháo hoa ✨
-        for (let j = 0; j < 30; j++) {
-            const confetti = document.createElement('div');
-            confetti.innerText = '✨';
-            confetti.style.position = 'fixed';
-            confetti.style.bottom = '100px';
-            confetti.style.right = '50px';
-            confetti.style.fontSize = Math.random() * 20 + 10 + 'px';
-            confetti.style.zIndex = '10001';
-            confetti.style.transition = 'all 1s ease-out';
-            document.body.appendChild(confetti);
-            setTimeout(() => {
-                confetti.style.transform = `translate(${(Math.random() - 0.5) * 300}px, ${-Math.random() * 300}px)`;
-                confetti.style.opacity = '0';
-            }, 10);
-            setTimeout(() => confetti.remove(), 1000);
-        }
-
-        // 2. Hiệu ứng Đánh máy ⌨️
-        if (!hasTyped) {
-            hasTyped = true;
-            msg.innerHTML = ""; 
-            function typeWriter() {
-                if (i < text.length) {
-                    msg.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 70); 
-                }
-            }
-            typeWriter();
-        }
+        box.innerHTML = '📦'; // Đổi icon sang hộp đã mở
+        msg.innerHTML = text; // Hiện thẳng toàn bộ lời chúc luôn
     } else {
         msg.style.display = 'none';
-        box.innerHTML = '🎁';
+        box.innerHTML = '🎁'; // Đổi lại về hộp quà đóng
     }
 }
-    
     </script>
 </body>
 </html>
