@@ -256,16 +256,24 @@
             updateParticleGroup(groupRed, 'red', state, 0.08, handRotY, time);
             updateParticleGroup(groupGift, 'gift', state, 0.08, handRotY, time);
 
+            // --- TỐI ƯU HÓA HIỂN THỊ ĐỂ CHỐNG CHÈN HÌNH ---
             if (state === 'TREE') {
-                titleMesh.visible = true; starMesh.visible = true; loveMesh.visible = false;
-                starMesh.rotation.z -= 0.02; photoMeshes.forEach(m => { m.scale.lerp(new THREE.Vector3(0,0,0), 0.1); m.visible = false; });
+                titleMesh.visible = true; 
+                starMesh.visible = true; 
+                loveMesh.visible = false; // Luôn ẩn lời chúc khi ở chế độ cây
+                starMesh.rotation.z -= 0.02; 
+                photoMeshes.forEach(m => { m.scale.lerp(new THREE.Vector3(0,0,0), 0.1); m.visible = false; });
             } else if (state === 'HEART') {
-                titleMesh.visible = false; starMesh.visible = false; loveMesh.visible = true;
-                const s = 1 + Math.abs(Math.sin(time*3))*0.1; loveMesh.scale.set(s,s,1);
+                titleMesh.visible = false; // Luôn ẩn title khi ở chế độ trái tim
+                starMesh.visible = false;  // Luôn ẩn ngôi sao khi ở chế độ trái tim
+                loveMesh.visible = true;   // Hiện lời chúc hồng
+                const s = 1 + Math.abs(Math.sin(time*3))*0.1; 
+                loveMesh.scale.set(s,s,1);
+                photoMeshes.forEach(m => { m.visible = false; m.scale.set(0,0,0); });
             } else if (state === 'EXPLODE') {
-                titleMesh.visible = false; starMesh.visible = false; loveMesh.visible = false;
-                
-                // --- SỬA LỖI CHỌN ẢNH TẠI ĐÂY ---
+                titleMesh.visible = false; 
+                starMesh.visible = false; 
+                loveMesh.visible = false;
                 let maxZ = -999; 
                 photoMeshes.forEach((mesh, i) => {
                     mesh.visible = true; 
@@ -273,17 +281,14 @@
                     const zPos = Math.cos(angle) * 25;
                     mesh.position.lerp(new THREE.Vector3(Math.sin(angle) * 25, Math.sin(time + i) * 3, zPos), 0.1);
                     mesh.lookAt(camera.position); 
-                    
                     let s = (zPos > 5) ? 1.0 + (zPos/25)*0.8 : 0.6; 
                     mesh.scale.lerp(new THREE.Vector3(s, s, s), 0.1);
-                    
-                    // Cập nhật selectedIndex cho ảnh nào đang ở gần camera nhất
-                    if (zPos > maxZ) {
-                        maxZ = zPos;
-                        selectedIndex = i;
-                    }
+                    if (zPos > maxZ) { maxZ = zPos; selectedIndex = i; }
                 });
             } else if (state === 'PHOTO') {
+                titleMesh.visible = false;
+                starMesh.visible = false;
+                loveMesh.visible = false;
                 photoMeshes.forEach((mesh, i) => { 
                     if (i === selectedIndex) { 
                         mesh.position.lerp(new THREE.Vector3(0, 0, 60), 0.1); 
@@ -310,12 +315,16 @@
             hands.onResults(results => {
                 if (results.multiHandLandmarks.length === 2) {
                     const h1 = results.multiHandLandmarks[0], h2 = results.multiHandLandmarks[1];
-                    if (Math.hypot(h1[8].x - h2[8].x, h1[8].y - h2[8].y) < 0.15) { state = 'HEART'; return; }
+                    const distIndex = Math.hypot(h1[8].x - h2[8].x, h1[8].y - h2[8].y);
+                    // Nhận diện trái tim chính xác hơn
+                    if (distIndex < 0.15) { state = 'HEART'; return; }
                 }
                 if(results.multiHandLandmarks.length > 0) {
                     const lm = results.multiHandLandmarks[0]; handX = lm[9].x; 
                     let d = 0; [8,12,16,20].forEach(i => d += Math.hypot(lm[i].x-lm[0].x, lm[i].y-lm[0].y));
-                    if (d/4 < 0.25) state = 'TREE'; else if (Math.hypot(lm[4].x-lm[8].x, lm[4].y-lm[8].y) < 0.05) state = 'PHOTO'; else state = 'EXPLODE';
+                    if (d/4 < 0.25) state = 'TREE'; 
+                    else if (Math.hypot(lm[4].x-lm[8].x, lm[4].y-lm[8].y) < 0.05) state = 'PHOTO'; 
+                    else state = 'EXPLODE';
                 } else state = 'TREE';
             });
             new Camera(video, { onFrame: async () => { await hands.send({image: video}); }, width: 320, height: 240 }).start();
